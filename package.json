@@ -1,0 +1,19 @@
+{
+  "name": "gulp_test",
+  "version": "1.0.0",
+  "description": "skills developing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jarasek26/gulp_test.git"
+  },
+  "author": "jarasek26",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jarasek26/gulp_test/issues"
+  },
+  "homepage": "https://github.com/jarasek26/gulp_test#readme"
+}
