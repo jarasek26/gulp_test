@@ -10,8 +10,9 @@ var gutil = require('gulp-util');
 var tasks = require('gulp-task-listing');
 var plumber = require('gulp-plumber');
 var sass = require('gulp-sass');
-var jspm = require('gulp-jspm');
-var changed = require('gulp-changed');
+
+//TODO: compare with https://github.com/contra/gulp-cached
+var changed = require('gulp-changed');  
 var gls = require('gulp-live-server');
 
 /*********************************************************************
@@ -31,6 +32,7 @@ Errors handling
 *********************************************************************/
 
 
+    
 
 /*********************************************************************
 Main tasks
@@ -57,18 +59,14 @@ gulp.task('build',['lint','scripts','sass']);
 File management
 *********************************************************************/
 
-gulp.task('jsmp', function(){
-    return gulp.src(target.js)
-        .pipe(gulp_jspm())
-        .pipe(gulp.dest(target.dest));
-});
-
+//TODO: add some jspm / requireJS style plugin
 
 gulp.task('scripts', ['lint'], function() {
   return gulp.src(target.js)
   .pipe(concat('all.min.js'))
   .pipe(uglify())
   .pipe(jshint())
+  .pipe(jshint.reporter('cool-reporter'))
   .pipe(gulp.dest(target.dest));
 });
 

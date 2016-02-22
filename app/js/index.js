@@ -59,4 +59,5 @@ console.log('Listen1 on '+app.get('port'));
 console.log(__dirname);
 
 db.hi();
-db.setup();
+db.getPassword();
+//db.promiseTest();
