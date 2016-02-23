@@ -29,34 +29,34 @@ module.exports = {
        
     },
     getPassword: function() { 
-        var p = new Promise(function(resolve, reject){
                mysql_credential = {
                   host     : 'localhost',
                   user     : 'sowa',
-                  password : '',
+                  password : 'd3_v8;',
                   database : 'rk_db'
                 };
-
-            console.log ('Input password for mysql:');
-            //process.stdin.resume();
-            process.stdin.setEncoding('utf8');
-            process.stdin.once('data', function (someCode) {
-               // process.stdin.pause();
-                console.log ('Code: ' + someCode);
-                if(someCode) {
-                    resolve(someCode);
-                } else {
-                    reject('Failure!');
-                }
-            }); 
-            
-            p.then(function() { 
-                mysql_credential.password = someCode;
-                this.makeQuery();
-            }).catch(function() {
-                console.log('Error!');
-            });
-        });        
+//        var p = new Promise(function(resolve, reject){
+//
+//            console.log ('Input password for mysql:');
+//            //process.stdin.resume();
+//            process.stdin.setEncoding('utf8');
+//            process.stdin.once('data', function (someCode) {
+//               // process.stdin.pause();
+//                console.log ('Code: ' + someCode);
+//                if(someCode) {
+//                    resolve(someCode);
+//                } else {
+//                    reject('Failure!');
+//                }
+//            }); 
+//            
+//            p.then(function() { 
+//                mysql_credential.password = someCode;
+//                this.makeQuery();
+//            }).catch(function() {
+//                console.log('Error!');
+//            });
+//        });        
    },
     promiseTest: function() {
             var p = new Promise(function(resolve, reject) {
