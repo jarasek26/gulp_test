@@ -10,7 +10,7 @@ var TodoCtrl = function($scope) {
   };
   $scope.isTodo = function(){
       return $scope.todos.length > 0;  
-  }
+  };
   $scope.toggleEditMode = function(){
       $(event.target).closest('li').toggleClass('editing');
   };
@@ -30,7 +30,7 @@ var TodoCtrl = function($scope) {
 
   $scope.hasDone = function() {
       return ($scope.todos.length != $scope.remaining());
-  }    
+  };    
     
   $scope.itemText = function() {
       return ($scope.todos.length - $scope.remaining() > 1) ? "items" : "item";     
@@ -50,7 +50,7 @@ var TodoCtrl = function($scope) {
     });
   };
     
-}
+};
 
 angular.module('todoModule', [])
 .controller('TodoCtrl', TodoCtrl);

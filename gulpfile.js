@@ -107,4 +107,14 @@ gulp.task('lintWatch', function() {
     });
 });
 
+gulp.task('test', function() {
+
+
+    (function(txt) {
+        return console.log(txt);
+    })('demo');
+      
+    
+});
+
 // gutil.log(gutil.colors.green('Started...'));
