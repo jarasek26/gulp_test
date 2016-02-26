@@ -10,10 +10,12 @@ var gutil = require('gulp-util');
 var tasks = require('gulp-task-listing');
 var plumber = require('gulp-plumber');
 var sass = require('gulp-sass');
+var ts = require('gulp-typescript');
 
 //TODO: compare with https://github.com/contra/gulp-cached
 var changed = require('gulp-changed');  
 var gls = require('gulp-live-server');
+var exec = require('child_process').exec;
 
 /*********************************************************************
 Paths storage
@@ -22,9 +24,10 @@ Paths storage
 var target = {
     dest : 'dist',
     js : 'app/js/*.js',
-    css: 'dist/css',
+    css: 'dist',
     start: 'app/js/index.js',
-    sass: 'app/scss/*.scss'    
+    sass: 'app/**/*.scss',
+    jsDist: 'dist/js'
 };
 
 /*********************************************************************
@@ -67,7 +70,7 @@ gulp.task('scripts', ['lint'], function() {
   .pipe(uglify())
   .pipe(jshint())
   .pipe(jshint.reporter('cool-reporter'))
-  .pipe(gulp.dest(target.dest));
+  .pipe(gulp.dest(target.jsDist));
 });
 
 gulp.task('lint', function() {
@@ -77,6 +80,14 @@ gulp.task('lint', function() {
       .on('error', function (error) {
         console.error('' + error);
         });
+});
+
+gulp.task('start', function () {
+    exec('node dist/index.js', function (err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);
+  });
 });
 
 gulp.task('sass', function () {
@@ -89,9 +100,25 @@ gulp.task('sass', function () {
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest(target.css));
 });
- 
+
+
+
 gulp.task('sass:watch', function () {
   gulp.watch(target.sass, ['sass']);
+});
+
+
+gulp.task('ts', function () {
+	return gulp.src('app/**/*.ts')
+        .pipe(changed('dist/'))
+		.pipe(ts({
+			noImplicitAny: true
+		}))
+		.pipe(gulp.dest('dist/'));
+});
+
+gulp.task('ts:watch', function () {
+  gulp.watch('app/**/*.ts', ['ts']);
 });
 
 /*********************************************************************

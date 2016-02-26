@@ -3,13 +3,13 @@ console.log(__dirname);
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var db = require('./js/db');
+var db = require('./js/all.min.js');
 var path = require('path');
 
 app.set('port', process.env.PORT || 8080);
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(express.static(__dirname + '../dist/'));
+app.use(express.static(__dirname));
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/a', function(req, res) {
@@ -17,7 +17,7 @@ app.get('/a', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-    res.sendFile('views/todo.html', {root: __dirname });
+    res.sendFile('todo/todo.html', {root: __dirname });
     console.log('wyslano');
 });
 
