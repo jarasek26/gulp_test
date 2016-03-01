@@ -16,6 +16,8 @@ var ts = require('gulp-typescript');
 var changed = require('gulp-changed');  
 var gls = require('gulp-live-server');
 var exec = require('child_process').exec;
+var karma = require('karma').Server;
+
 
 /*********************************************************************
 Paths storage
@@ -23,11 +25,12 @@ Paths storage
 
 var target = {
     dest : 'dist',
-    js : 'app/js/*.js',
+    js : 'app/**/*.js',
     css: 'dist',
     start: 'app/js/index.js',
     sass: 'app/**/*.scss',
-    jsDist: 'dist/js'
+    jsDist: 'dist/js',
+    ts: 'app/**/*.ts'
 };
 
 /*********************************************************************
@@ -35,7 +38,20 @@ Errors handling
 *********************************************************************/
 
 
-    
+/*********************************************************************
+Unit testing
+*********************************************************************/
+
+gulp.task('test', ['lint'], function(done) {
+    karma.start({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, function() {
+        done();
+    });
+});
+
+
 
 /*********************************************************************
 Main tasks
@@ -109,16 +125,16 @@ gulp.task('sass:watch', function () {
 
 
 gulp.task('ts', function () {
-	return gulp.src('app/**/*.ts')
-        .pipe(changed('dist/'))
+	return gulp.src(target.ts)
+        .pipe(changed(target.dest))
 		.pipe(ts({
 			noImplicitAny: true
 		}))
-		.pipe(gulp.dest('dist/'));
+		.pipe(gulp.dest(target.dest));
 });
 
 gulp.task('ts:watch', function () {
-  gulp.watch('app/**/*.ts', ['ts']);
+  gulp.watch(target.ts, ['ts']);
 });
 
 /*********************************************************************
@@ -134,7 +150,7 @@ gulp.task('lintWatch', function() {
     });
 });
 
-gulp.task('test', function() {
+gulp.task('tests2', function() {
 
 
     (function(txt) {
